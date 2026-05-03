@@ -1,31 +1,119 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guess Battle | SoCloSe Clan</title>
-    <link rel="stylesheet" href="style.css">
+    <title>SoCloSe - Guess Battle</title>
+    <style>
+        /* ستايل الـ Hacker واللون الأخضر المفضل لديك */
+        body {
+            background-color: #000;
+            color: #0f0;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            text-shadow: 0 0 5px #0f0;
+        }
+
+        .container {
+            border: 2px solid #0f0;
+            padding: 20px;
+            box-shadow: 0 0 20px #0f0;
+            text-align: center;
+            background: rgba(0, 20, 0, 0.9);
+            width: 90%;
+            max-width: 400px;
+        }
+
+        h1 { font-size: 1.5rem; margin-bottom: 20px; }
+        
+        p { margin: 10px 0; }
+
+        input {
+            background: #000;
+            border: 1px solid #0f0;
+            color: #0f0;
+            padding: 10px;
+            text-align: center;
+            font-size: 1.2rem;
+            width: 80%;
+            margin-bottom: 20px;
+            outline: none;
+        }
+
+        button {
+            background: #0f0;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        button:hover {
+            background: #0a0;
+        }
+
+        #message {
+            margin-top: 20px;
+            font-weight: bold;
+            min-height: 1.5em;
+        }
+
+        .clan-tag {
+            font-size: 0.8rem;
+            margin-top: 30px;
+            opacity: 0.7;
+        }
+    </style>
 </head>
 <body>
-    <div class="terminal-container">
-        <header>
-            <h1 class="glitch">GUESS_BATTLE v1.0</h1>
-            <p>SYSTEM: READY | CLAN: SoCloSe</p>
-        </header>
 
-        <div id="game-board">
-            <div class="player-section">
-                <h2 id="turn-display">دور اللاعب 1</h2>
-                <input type="number" id="guess-input" placeholder="أدخل رقمك...">
-                <button onclick="makeGuess()">تخمين</button>
-            </div>
-            <div id="message-area"></div>
-        </div>
+    <div class="container">
+        <h1>[ GUESS_BATTLE v1.0 ]</h1>
+        <p>توقع الرقم من 1 إلى 100</p>
+        
+        <input type="number" id="guessInput" placeholder="أدخل رقمك هنا...">
+        <br>
+        <button onclick="checkGuess()">تأكيد التخمين</button>
 
-        <div class="stats">
-            <p>المحاولات: <span id="attempts">0</span></p>
-        </div>
+        <div id="message"></div>
+
+        <div class="clan-tag">PRODUCED BY: SoCloSe CLAN LEADER</div>
     </div>
-    <script src="script.js"></script>
+
+    <script>
+        // منطق اللعبة
+        const randomNumber = Math.floor(Math.random() * 100) + 1;
+        let attempts = 0;
+
+        function checkGuess() {
+            const userGuess = document.getElementById('guessInput').value;
+            const message = document.getElementById('message');
+            attempts++;
+
+            if (!userGuess) {
+                message.innerText = "أدخل رقم أولاً!";
+                return;
+            }
+
+            if (userGuess == randomNumber) {
+                message.innerHTML = `تم الاختراق بنجاح! <br> الرقم هو ${randomNumber} <br> المحاولات: ${attempts}`;
+                message.style.color = "#0f0";
+            } else if (userGuess > randomNumber) {
+                message.innerText = "الرقم كبير جداً! حاول مرة أخرى.";
+                message.style.color = "#f00";
+            } else {
+                message.innerText = "الرقم صغير جداً! حاول مرة أخرى.";
+                message.style.color = "#f00";
+            }
+        }
+    </script>
 </body>
 </html>
